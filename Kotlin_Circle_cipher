@@ -1,0 +1,45 @@
+// Решение задачи с CodeWars на кодирование/декодирование слова
+// ссылка: https://www.codewars.com/kata/634d0723075de3f97a9eb604/train/python (там нет решения на Korlin)
+
+fun main() {
+    println(encode("codewars"))
+    println(encode("white"))
+    println(decode("wehti"))
+    println(decode("csordaew"))
+    println(encode("You have chosen to translate this kata."))
+    println(decode("Y.oaut ahka vsei hcth oesteanl stnoa rt"))
+}
+
+fun encode(
+    word: String
+): String {
+    val lengthOfWord = word.length
+    var stringResult: String = ""
+
+    for (i in 0 until lengthOfWord/2 + (lengthOfWord%2)){
+        val firstIndex: Int = i
+        val backIndex: Int = lengthOfWord - (i + 1)
+        if (firstIndex == backIndex){
+            stringResult += "${word[firstIndex]}"
+            continue
+        }
+        stringResult += "${word[firstIndex]}${word[backIndex]}"
+    }
+    return stringResult
+}
+
+fun decode(
+    word: String
+): String {
+    val lengthOfWord = word.length
+    var leftSideOfWord = ""
+    var rightSideOfWord = ""
+    for (index in 0 until lengthOfWord step 2){
+        leftSideOfWord += word[index]
+    }
+    val reversedWord = word.reversed()
+    for (index in lengthOfWord%2 until lengthOfWord step 2){
+        rightSideOfWord += reversedWord[index]
+    }
+    return "$leftSideOfWord$rightSideOfWord"
+}
